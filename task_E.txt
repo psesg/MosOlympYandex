@@ -1,0 +1,29 @@
+4
+6
+push 28
+pop 28
+push 16
+push 68
+pop 68
+pop 16
+8
+push 30
+push 28
+pop 30
+push 52
+push 79
+pop 28
+pop 52
+pop 79
+6
+push 46
+push 52
+push 31
+pop 31
+pop 19
+pop 46
+4
+push 97
+pop 97
+push 25
+pop 25
