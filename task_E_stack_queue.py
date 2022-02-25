@@ -8,7 +8,7 @@ original_stdin = sys.stdin
 
 logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)  # DEBUG, CRITICAL
 
-my_output_file = "output.txt"
+my_output_file = "e2_output.txt"
 original_stdout = sys.stdout  # Save a reference to the original standard output
 fout = open(my_output_file, "w")
 sys.stdout = fout  # Change the standard output to the file we created.
