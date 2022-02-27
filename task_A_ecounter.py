@@ -7,7 +7,7 @@ fromfile = False
 tofile = False
 original_stdin = sys.stdin
 
-logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)  # DEBUG, CRITICAL
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)  # DEBUG, CRITICAL
 
 tofile = False
 if tofile:
@@ -27,30 +27,37 @@ if os.path.exists(my_input_file):
 else:
     logging.info("will take data from {}".format("stdin"))
 
+a = [4, 5, 2, 3, 3, 1, 5, 4, 1, 2]
 
 def getremain(r):
-    a = [4, 5, 2, 3, 3, 1, 5, 4, 1, 2]
     return sum(a[:r])
 
-def getcount(number):
+def getcount(number, number_str):
     count = 0
     div = 10
-    deep = 1
-    while number // div >= 1:
-        print("- ", deep, div, number // div)
-        div *= 10
-        deep += 1
+    deep = 0
+    lenstr = len(number_str)
+
+    for i in range(lenstr):
+        curstr = number_str[0:lenstr-i]
+        curint = int(curstr)
+        logging.info("++{}".format((curint // div) * (sum(a)-2)))
+        count += (curint // div) * (sum(a)-2)
+        logging.info("++{}".format(getremain(curint % div)))
+        count += getremain(curint % div)
+    return count
 
 
 ncount = int(sys.stdin.readline().strip("\n"))
 for cur_set in range(ncount):
-    count = int(sys.stdin.readline().strip("\n"))
+    count_str = sys.stdin.readline().strip("\n")
+    count = int(count_str)
     if count == 0:
         print(0)
     elif count > 0 and count < 10:
         print(getremain(count))
     else:
-        print(getcount(count))
+        print(getcount(count, count_str))
 
 if fromfile:
     sys.stdin = original_stdin  # Change the standard input to the file we created.
