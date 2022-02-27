@@ -16,7 +16,7 @@ if tofile:
     fout = open(my_output_file, "w")
     sys.stdout = fout  # Change the standard output to the file we created.
 
-my_input_file = os.path.join(os.getcwd(), "a_in.txt")
+my_input_file = os.path.join(os.getcwd(), "a2.txt")
 
 if os.path.exists(my_input_file):
     # file exists
@@ -32,7 +32,7 @@ a = [4, 5, 2, 3, 3, 1, 5, 4, 1, 2]
 def getremain(r):
     return sum(a[:r])
 
-def getcount(number, number_str):
+def getcount(number_str):
     count = 0
     div = 10
     deep = 0
@@ -62,7 +62,7 @@ for cur_set in range(ncount):
     elif count > 0 and count < 10:
         print(getremain(count))
     else:
-        print(getcount(count, count_str))
+        print(getcount(count_str))
 
 if fromfile:
     sys.stdin = original_stdin  # Change the standard input to the file we created.
