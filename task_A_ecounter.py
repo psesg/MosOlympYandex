@@ -7,7 +7,7 @@ fromfile = False
 tofile = False
 original_stdin = sys.stdin
 
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)  # DEBUG, CRITICAL
+logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)  # DEBUG, CRITICAL
 
 tofile = False
 if tofile:
@@ -41,11 +41,16 @@ def getcount(number, number_str):
     for i in range(lenstr):
         curstr = number_str[0:lenstr-i]
         curint = int(curstr)
-        logging.info("++{}".format((curint // div) * (sum(a)-2)))
-        count += (curint // div) * (sum(a)-2)
-        logging.info("++{}".format(getremain(curint % div)))
-        count += getremain(curint % div)
-    return count
+        logging.info("++{}".format((curint // div) * sum(a)))
+        count += (curint // div) * sum(a)
+        if deep >= 0:
+            count -= 2
+        if curint % div != 0:
+            logging.info("++{}".format(getremain(curint % div)))
+            count += getremain(curint % div)
+        deep += 1
+    logging.info("deep = {}".format(deep-1))
+    return count+2
 
 
 ncount = int(sys.stdin.readline().strip("\n"))
