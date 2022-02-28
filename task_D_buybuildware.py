@@ -11,12 +11,12 @@ logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)  # DEBUG, CRITICA
 
 tofile = True
 if tofile:
-    my_output_file = "d1_output.txt"
+    my_output_file = "d2_output.txt"
     original_stdout = sys.stdout  # Save a reference to the original standard output
     fout = open(my_output_file, "w")
     sys.stdout = fout  # Change the standard output to the file we created.
 
-my_input_file = os.path.join(os.getcwd(), "d1.txt")
+my_input_file = os.path.join(os.getcwd(), "d2.txt")
 
 if os.path.exists(my_input_file):
     # file exists
