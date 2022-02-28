@@ -7,16 +7,16 @@ fromfile = False
 
 original_stdin = sys.stdin
 
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)  # DEBUG, CRITICAL
+logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)  # DEBUG, CRITICAL
 
 tofile = True
 if tofile:
-    my_output_file = "d0_output.txt"
+    my_output_file = "d1_output.txt"
     original_stdout = sys.stdout  # Save a reference to the original standard output
     fout = open(my_output_file, "w")
     sys.stdout = fout  # Change the standard output to the file we created.
 
-my_input_file = os.path.join(os.getcwd(), "d0.txt")
+my_input_file = os.path.join(os.getcwd(), "d1.txt")
 
 if os.path.exists(my_input_file):
     # file exists
@@ -52,15 +52,26 @@ for cur_set in range(nset):
     logging.info("cost_m_ware_in_n_mag={}".format(cost_m_ware_in_n_mag))
 
     voc.clear()
-    for i in range(n_mag):
+    for i in range(m_ware):
         cntrlst.clear()
-        for j in range(m_ware):
-            logging.info("cntrlst.append i={} j={} {}+{}".format(i, j, n_delcost[i], cost_m_ware_in_n_mag[j][i]))
-            cntrlst.append(n_delcost[i] + cost_m_ware_in_n_mag[j][i])
-        logging.info(" voc.update ind={} min={}".format(cntrlst.index(min(cntrlst)),min(cntrlst) ))
-        voc.update({cntrlst.index(min(cntrlst)): min(cntrlst)})
+        for j in range(n_mag):
+            logging.info("cntrlst.append i={} j={} {}+{}".format(i, j, n_delcost[j], cost_m_ware_in_n_mag[i][j]))
+            cntrlst.append(n_delcost[j] + cost_m_ware_in_n_mag[i][j])
+        logging.info(" voc.update i={} ind={} min={}".format(i, cntrlst.index(min(cntrlst)),min(cntrlst) ))
+        voc.update({i: str(cntrlst.index(min(cntrlst))) + " " + str(min(cntrlst))})
+    logging.info("len(voc)={}".format(len(voc)))
+    tmp0 = 0
+    tmp1 = 0
+    summa = 0
+    pos = ""
     for keys, values in voc.items():
+        tmp = values.split(' ')
+        tmp0 = int(tmp[0])
+        tmp1 = int(tmp[1])
+        summa += tmp1
+        pos += (str(tmp0+1) + ' ')
         logging.info("keys={}, values={}".format(keys, values))
+    print("{}\n{}".format(summa, pos.strip()))
 
 if fromfile:
     sys.stdin = original_stdin  # Change the standard input to the file we created.
